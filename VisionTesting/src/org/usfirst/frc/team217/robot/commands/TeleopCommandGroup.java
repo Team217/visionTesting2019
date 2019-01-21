@@ -28,6 +28,7 @@ public class TeleopCommandGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addParallel(new DriveToLightCommand());
+    	addParallel(new teleopDrive());
+    	//addParallel(new DriveToLightCommand());
     }
 }

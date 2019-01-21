@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team217.robot.commands.DriveToLightCommand;
 import org.usfirst.frc.team217.robot.commands.ExampleCommand;
 import org.usfirst.frc.team217.robot.commands.TeleopCommandGroup;
 import org.usfirst.frc.team217.robot.subsystems.Climber;
@@ -61,7 +63,7 @@ public class Robot extends TimedRobot {
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
-		
+		Robot.m_oi.circleDriver.whileHeld(new DriveToLightCommand());
 		
 	}
 	/**
@@ -77,6 +79,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+	}
+	
+	public static double deadband(double value, double deadband) {
+		if (Math.abs(value) <= Math.abs(deadband)) {
+			value = 0.0;
+		}
+
+		return value;
 	}
 
 	/**
@@ -152,9 +162,9 @@ public class Robot extends TimedRobot {
 		y = ty.getDouble(0.0);
 		area = ta.getDouble(0.0);
 		
-		System.out.println(x);
-		System.out.println(y);
-		System.out.println(area);
+	//	System.out.println(x);
+	//	System.out.println(y);
+	//	System.out.println(area);
 		
 		SmartDashboard.putNumber("LimelightX", x);
 		SmartDashboard.putNumber("LimelightY", y);

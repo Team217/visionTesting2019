@@ -24,9 +24,10 @@ public class DrivingSubsystem extends Subsystem {
 	WPI_TalonSRX leftMaster1 = RobotMap.leftMaster;
 	WPI_VictorSPX leftMidSlave1 = RobotMap.leftMidSlave;
 	WPI_VictorSPX leftBackSlave1 = RobotMap.leftBackSlave;
+	PigeonIMU pigeon1 = RobotMap.pigeon;
 	double x = 0;	
 	double pigeonAngle = 0.0;
-
+	public double speed = 0;
 
 	PID turnPID1 = RobotMap.turnPID;
 	PID angleCorrectPID = new PID(0.01, 0.0, 0.0, 100);
@@ -52,6 +53,21 @@ public class DrivingSubsystem extends Subsystem {
 		rightMaster1.resetEncoder();
     }
     
+    protected double[] antiTip(double leftSpeed, double rightSpeed) {
+		if(pigeon1.getPitch() >= 12.0) {
+			leftSpeed = -0.5;
+			rightSpeed = 0.5;
+		}
+		else if(pigeon1.getPitch() <= -12.0) {
+			leftSpeed = 0.5;
+			rightSpeed = -0.5;
+		}
+		
+		double[] speed = {leftSpeed, rightSpeed};
+		return speed;
+	}
+    
+
     public void drive() {
     	
     	x = Robot.getXVis();
@@ -71,8 +87,8 @@ public class DrivingSubsystem extends Subsystem {
     	
     }*/	
     	
-		turnPID1.setPID(.105, .00001, 0);		
-		double speed = turnPID1.getOutput(0, x);
+		turnPID1.setPID(.085, .00001, 0);		
+		speed = turnPID1.getOutput(0, x);
 		
 		turnPID_OnTarget = false;
 		
@@ -81,8 +97,9 @@ public class DrivingSubsystem extends Subsystem {
 			turnPID_OnTarget = true;
 		}
 		
-		leftMaster1.set(speed);
-		rightMaster1.set(speed);
+		
+		
+		System.out.println(speed);
 	}
     
     protected void interrupted() {
@@ -94,6 +111,20 @@ public class DrivingSubsystem extends Subsystem {
     	leftMaster1.set(0);
     	rightMaster1.set(0);
     }
+    
+	public void teleopDrive(double speed, double turn, boolean antiTipOn) {
+		double leftSpeed = speed + turn;
+		double rightSpeed = -speed + turn;
+		
+		if(antiTipOn && !Climber.currentPTO.equals(Climber.PTOMode.climbMode)) {
+			double[] antiTipSpeed = antiTip(leftSpeed, rightSpeed);
+			leftSpeed = antiTipSpeed[0];
+			rightSpeed = antiTipSpeed[1];
+		}
+		
+		leftMaster1.set(leftSpeed);
+		rightMaster1.set(rightSpeed);
+	}
 
 }
 
