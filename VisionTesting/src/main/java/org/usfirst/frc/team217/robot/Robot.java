@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team217.robot.commands.TeleopCommandGroup;
 import org.usfirst.frc.team217.robot.subsystems.Climber;
 import org.usfirst.frc.team217.robot.subsystems.DrivingSubsystem;
-import org.usfirst.frc.team217.robot.PigeonIMU;
+import org.team217.ctre.*;
+import org.team217.pid.*;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -68,14 +69,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-	}
-	
-	public static double deadband(double value, double deadband) {
-		if (Math.abs(value) <= Math.abs(deadband)) {
-			value = 0.0;
-		}
-
-		return value;
 	}
 
 	/**

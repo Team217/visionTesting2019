@@ -1,9 +1,8 @@
 package org.usfirst.frc.team217.robot.commands;
 
-import org.usfirst.frc.team217.robot.OI;
-import org.usfirst.frc.team217.robot.PID;
-import org.usfirst.frc.team217.robot.Robot;
-import org.usfirst.frc.team217.robot.RobotMap;
+import org.usfirst.frc.team217.robot.*;
+import org.team217.*;
+import org.team217.pid.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -29,31 +28,30 @@ public class teleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = -Robot.deadband(Robot.m_oi.driver.getY(), 0.1);
-    	double turn = Robot.deadband(Robot.m_oi.driver.getZ(), 0.1);
-    	double x = Robot.getXVis();
-		double area = Robot.getAreaVis();
-		
-		double kP = .05 / Math.sqrt(area) - .01;
-
-		if(kP < 0.01) {
-			kP = 0.01;
-		}
-		if(kP > 0.05) {
-			kP = 0.05;
-		}
-    	
-		turnPID1.setPID(kP, 0, 0);
-		double visSpeed = turnPID1.getOutput(0, x);
-		
-		turnPID_OnTarget = false;
-		
-		if(x <= 0.5 && x >= -0.5) {
-			visSpeed = 0.0;
-			turnPID_OnTarget = true;
-		}
+    	double speed = -Range.deadband(Robot.m_oi.driver.getY(), 0.1);
+    	double turn = Range.deadband(Robot.m_oi.driver.getZ(), 0.1);
 
     	if(Robot.m_oi.circleDriver.get()) {
+			double x = Robot.getXVis();
+			double area = Robot.getAreaVis();
+			
+			double kP = Range.inRange(.03 / Math.sqrt(area) - .01, 0.015, 0.02);
+			
+			turnPID1.setPID(kP, 0.003, 0.005);
+			turnPID1.setMinMax(-0.2, 0.2);
+			
+			double visSpeed;
+
+			if(Range.isWithinRange(x, -0.5, 0.5)) {
+				visSpeed = 0.0;
+				turnPID_OnTarget = true;
+			}
+			else {
+				visSpeed = turnPID1.getOutput(0, x);
+				
+				turnPID_OnTarget = false;
+			}
+
     		turn = visSpeed;
     	}
     	

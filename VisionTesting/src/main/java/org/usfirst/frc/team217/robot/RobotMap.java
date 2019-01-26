@@ -8,7 +8,8 @@
 package org.usfirst.frc.team217.robot;
 
 //import org.usfirst.frc.team217.robot.PigeonIMU;
-import org.usfirst.frc.team217.robot.WPI_TalonSRX;
+import org.team217.ctre.*;
+import org.team217.pid.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
