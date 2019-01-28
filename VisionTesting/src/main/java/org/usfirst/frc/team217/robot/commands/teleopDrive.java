@@ -1,6 +1,6 @@
-package org.usfirst.frc.team217.robot.commands;
+package frc.robot.commands;
 
-import org.usfirst.frc.team217.robot.*;
+import frc.robot.*;
 import org.team217.*;
 import org.team217.pid.*;
 

@@ -5,23 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team217.robot;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
-import org.usfirst.frc.team217.robot.commands.TeleopCommandGroup;
-import org.usfirst.frc.team217.robot.subsystems.Climber;
-import org.usfirst.frc.team217.robot.subsystems.DrivingSubsystem;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import org.team217.ctre.*;
 import org.team217.pid.*;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.*;
 
 
 /**
