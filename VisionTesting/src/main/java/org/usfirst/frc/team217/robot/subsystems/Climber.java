@@ -1,10 +1,9 @@
 package org.usfirst.frc.team217.robot.subsystems;
 
-import org.usfirst.frc.team217.robot.RobotMap;
+import org.usfirst.frc.team217.robot.*;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

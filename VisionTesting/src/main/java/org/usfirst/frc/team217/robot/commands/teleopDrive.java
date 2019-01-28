@@ -35,9 +35,9 @@ public class teleopDrive extends Command {
 			double x = Robot.getXVis();
 			double area = Robot.getAreaVis();
 			
-			double kP = Range.inRange(.03 / Math.sqrt(area) - .01, 0.015, 0.02);
+			double kP = Range.inRange(.03 / Math.sqrt(area) - .01, 0.015, 0.025);
 			
-			turnPID1.setPID(kP, 0.003, 0.005);
+			turnPID1.setPID(kP, 0.002, 0);
 			turnPID1.setMinMax(-0.2, 0.2);
 			
 			double visSpeed;
