@@ -10,17 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class teleopDrive extends Command {
-	PID turnPID1 = RobotMap.turnPID;
-	PID angleCorrectPID = new PID(0.01, 0.0, 0.0, 100);
-
-	public boolean drivePID_OnTarget = false;
-	public boolean turnPID_OnTarget = false;
+    PID turnPID1 = new PID(100);
+    
     public teleopDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
     
-    boolean antiTipOn = true;
+    boolean antiTipOn = false;
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -31,7 +28,7 @@ public class teleopDrive extends Command {
     	double speed = -Range.deadband(Robot.m_oi.driver.getY(), 0.1);
     	double turn = Range.deadband(Robot.m_oi.driver.getZ(), 0.1);
 
-    	if(Robot.m_oi.circleDriver.get()) {
+    	if(Robot.m_oi.rightBumperDriver.get()) {
 			double x = Robot.getXVis();
 			double area = Robot.getAreaVis();
 			
@@ -44,22 +41,19 @@ public class teleopDrive extends Command {
 
 			if(Range.isWithinRange(x, -0.5, 0.5)) {
 				visSpeed = 0.0;
-				turnPID_OnTarget = true;
 			}
 			else {
 				visSpeed = turnPID1.getOutput(0, x);
-				
-				turnPID_OnTarget = false;
 			}
 
     		turn = visSpeed;
     	}
     	
     	if(Robot.m_oi.leftBumperDriver.get()) {
-    		antiTipOn = false;
+    		//antiTipOn = false;
     	}
     	else if(Robot.m_oi.rightBumperDriver.get()) {
-    		antiTipOn = true;
+    		//antiTipOn = true;
     	}
     	
     	Robot.kDrivingSubsystem.teleopDrive(speed, turn, antiTipOn);

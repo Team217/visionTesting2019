@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc.team217.robot.commands.*;
 import org.usfirst.frc.team217.robot.subsystems.*;
-import org.team217.ctre.*;
-import org.team217.pid.*;
 
 import edu.wpi.first.networktables.*;
 
@@ -28,16 +26,11 @@ import edu.wpi.first.networktables.*;
  */
 public class Robot extends TimedRobot {
 	public static final DrivingSubsystem kDrivingSubsystem = new DrivingSubsystem();
-	public static final Climber kClimber = new Climber();
 	public static OI m_oi;
 	static double x, y, area;
 	Command m_autonomousCommand;
 	Command teleopCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	public double originalAngle = 0.0;
-	PID turnPID1 = RobotMap.turnPID;
-	PID angleCorrectPID = new PID(0.01, 0.0, 0.0, 100);
-	PigeonIMU pigeon1 = RobotMap.pigeon;
 
 	
 	/**
@@ -50,6 +43,7 @@ public class Robot extends TimedRobot {
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
+        RobotMap.rightMaster.resetEncoder();
 	}
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -111,7 +105,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		kClimber.driveMode();
 		teleopCommand = new TeleopCommandGroup();
 		
 		if (teleopCommand != null) {
@@ -141,7 +134,7 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putNumber("LimelightX", x);
 		SmartDashboard.putNumber("LimelightY", y);
-		SmartDashboard.putNumber("LimelightA", area);
+        SmartDashboard.putNumber("LimelightA", area);
 		
 		Scheduler.getInstance().run();
 	
