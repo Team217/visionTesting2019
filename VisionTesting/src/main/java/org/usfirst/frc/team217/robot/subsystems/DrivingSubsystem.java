@@ -14,9 +14,9 @@ public class DrivingSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         RobotMap.leftMidSlave.follow(RobotMap.leftMaster);
-        RobotMap.leftRearSlave.follow(RobotMap.leftMaster);
+        RobotMap.leftBackSlave.follow(RobotMap.leftMaster);
         RobotMap.rightMidSlave.follow(RobotMap.rightMaster);
-        RobotMap.rightRearSlave.follow(RobotMap.rightMaster);
+        RobotMap.rightBackSlave.follow(RobotMap.rightMaster);
     }
     
     protected double[] antiTip(double leftSpeed, double rightSpeed) {
