@@ -33,10 +33,10 @@ public class RobotMap {
     // Motors
     public static final CANSparkMax leftMaster = new CANSparkMax(4, MotorType.kBrushless),
                 leftMidSlave = new CANSparkMax(5, MotorType.kBrushless),
-                leftRearSlave = new CANSparkMax(6, MotorType.kBrushless),
+                leftBackSlave = new CANSparkMax(6, MotorType.kBrushless),
                 rightMaster = new CANSparkMax(1, MotorType.kBrushless),
                 rightMidSlave = new CANSparkMax(2, MotorType.kBrushless),
-                rightRearSlave = new CANSparkMax(3, MotorType.kBrushless);
+                rightBackSlave = new CANSparkMax(3, MotorType.kBrushless);
 	
 	// Power Distribution Panel
 	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
